@@ -19,41 +19,21 @@ public:
     {
         if(!n)
             return true;
-        map<int, int> M;
-        for(int i = 0; i < flowerbed.size(); i++)
+        
+        int len = flowerbed.size();
+        for(int i = 1; i < len; i++)
         {
             if(flowerbed[i])
             {
-                if(i > 0 && !flowerbed[i - 1]) M[i]++;
-                if((i + 1 < flowerbed.size()) && !flowerbed[i + 1]) M[i]++;
+                flowerbed[i - 1] = flowerbed[i + 1] = 1;
             }
         }
+        int cnt = 0;
 
-        int canNotPlace = M.size();
-        for(auto x : M)
-            canNotPlace += x.second;
+        for(int x : flowerbed)
+            if(x) cnt++;
+        int canPlace = len - cnt;
 
-        cout << "canNotPlace: " << canNotPlace << endl;
-
-
-        int canPlace = flowerbed.size() - canNotPlace;
-        cout << "canPlace: " << canPlace << endl;
-        
-        if(canPlace ==  1)
-            return (n == 1 ? true : false); 
-        
-        if(canPlace & 1)
-        {
-            if((canPlace >> 1) + 1 >= n)
-                return true;
-        }
-        else  
-        {
-            if((canPlace >> 1) >= n)
-                return true;
-        }
-
-        return false;
 
     }
 };
